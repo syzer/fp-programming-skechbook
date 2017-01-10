@@ -1,3 +1,7 @@
+/**
+ * getIncompleteTaskSummaries
+ */
+
 const data = {
     result: 'SUCCESS',
     interfaceVersion: '1.0.3',
@@ -37,3 +41,13 @@ const data = {
         // , ...
     ]
 }
+
+    // [ { id: 105,
+    // priority: 'medium',
+    // dueDate: '2013-11-22',
+    // title: 'Do something else' } ]
+
+
+getIncompleteTaskSummaries('Lena')
+    .then(console.log)
+    .catch(console.error)
