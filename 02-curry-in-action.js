@@ -62,3 +62,20 @@ fetchData(getIncompleteTaskSummaries, data)
     .then(console.log)
     .catch(console.error)
 
+
+// Step3: with curring
+const fetchData2 = data => Promise.resolve(data)
+
+const getIncompleteTaskSummaries2 = (data, memberName) =>
+    fetchData2(data)
+        .then(R.prop('tasks'))
+        .then(R.filter(R.propEq('username', memberName)))
+        .then(R.reject(R.propEq('complete', true)))
+        .then(R.map(R.pick(['title', 'priority'])))
+        .then(R.sortBy(R.prop('dueDate')))
+
+getIncompleteTaskSummaries2(data, 'Scott')
+    .then(console.log)
+    .catch(console.error)
+
+// fs.readFile('bla').pipe(transducer).pipe(process.stdout)
