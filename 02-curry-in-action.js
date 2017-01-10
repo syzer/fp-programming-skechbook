@@ -58,3 +58,18 @@ getIncompleteTaskSummaries(data, 'Lena')
 // priority: 'medium',
 // dueDate: '2013-11-22',
 // title: 'Do something else' } ]
+
+// TODO
+getIncompleteTaskSummaries(data, 'Scott')
+    .then(console.log)
+    .catch(console.error)
+
+//     [ { id: 110,
+//       priority: 'medium',
+//       dueDate: '2013-11-15',
+//       title: 'Rename everything' },
+//      { id: 104,
+//       priority: 'high',
+//       dueDate: '2013-11-29',
+//       title: 'Do something' }
+//     ]
