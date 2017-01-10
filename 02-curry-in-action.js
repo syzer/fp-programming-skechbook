@@ -54,6 +54,7 @@ getIncompleteTaskSummaries(data, 'Lena')
     .then(console.log)
     .catch(console.error)
 
+
 // [ { id: 105,
 // priority: 'medium',
 // dueDate: '2013-11-22',

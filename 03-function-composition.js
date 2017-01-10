@@ -1,11 +1,29 @@
+const _ = require('lodash');
+
 // Updates an existing Ib in the DB
-export function patch(req, res) {
+function patch(req, res, error) {
+
+    return "123";
+}
+
+const onlyAdmin = (req, res) => {
+    const error = req.user != 'dmin';
+
+    return {req, res, error}
+}
+
+const removeId = (req, res, error) => {
     if(req.body._id) {
         delete req.body._id;
     }
-    return Ib.findById(req.params.id).exec()
-        .then(handleEntityNotFound(res))
-        .then(patchUpdates(req.body))
-        .then(respondWithResult(res))
-        .catch(handleError(res));
+    return {req, res, error};
 }
+
+const adminOnlyPatch = _.flow(onlyAdmin, removeId, patch);
+
+adminOnlyPatch({user: 'admin', body: {_id:'123'}}, {});
+
+
+/*
+
+*/
