@@ -1,0 +1,24 @@
+{
+  "name": "fp-programming-skechbook",
+  "version": "1.0.0",
+  "description": "README",
+  "main": "01-curry.js",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "ramda": "^0.23.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syzer/fp-programming-skechbook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syzer/fp-programming-skechbook/issues"
+  },
+  "homepage": "https://github.com/syzer/fp-programming-skechbook#readme"
+}

@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const R = require('ramda')
 
 // Updates an existing Ib in the DB
 function patch({req, res, error}) {
@@ -7,9 +8,9 @@ function patch({req, res, error}) {
 }
 
 const onlyAdmin = ({req, res, error}) => {
-    const error = req.user != 'dmin';
+    const newError = req.user != 'dmin';
 
-    return {req, res, error}
+    return {req, res, error: newError}
 }
 
 const removeId = ({req, res, error}) => {
@@ -29,7 +30,7 @@ const data = {
 
 adminOnlyPatch(data);
 
-
+// todo: either monad
 /*
 
 */
