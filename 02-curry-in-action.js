@@ -47,7 +47,7 @@ const incompleteTask = tasks => tasks.filter(task => !task.complete)
 const byUser = username => tasks => tasks.filter(task => task.username == username)
 const sortBy = attr => tasks => tasks.sort((a,b) => a[attr] - b[attr])
 
-const getIncompleteTaskSummaries = R.compose(incompleteTask, byUser('Scott'), sortBy('date'))
+const getIncompleteTaskSummaries = R.pipe(incompleteTask, byUser('Scott'), sortBy('date'))
 
 const fetchData = (predicate, data) => {
     const tasks = data.tasks || [];
@@ -62,23 +62,3 @@ fetchData(getIncompleteTaskSummaries, data)
     .then(console.log)
     .catch(console.error)
 
-
-// [ { id: 105,
-// priority: 'medium',
-// dueDate: '2013-11-22',
-// title: 'Do something else' } ]
-
-// TODO
-getIncompleteTaskSummaries(data, 'Scott')
-    .then(console.log)
-    .catch(console.error)
-
-//     [ { id: 110,
-//       priority: 'medium',
-//       dueDate: '2013-11-15',
-//       title: 'Rename everything' },
-//      { id: 104,
-//       priority: 'high',
-//       dueDate: '2013-11-29',
-//       title: 'Do something' }
-//     ]
