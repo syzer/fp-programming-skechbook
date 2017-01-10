@@ -1,3 +1,4 @@
+const R = require('ramda')
 /**
  * getIncompleteTaskSummaries
  */
@@ -42,15 +43,22 @@ const data = {
     ]
 }
 
-const getIncompleteTaskSummaries = (data, name) => {
+const incompleteTask = tasks => tasks.filter(task => !task.complete)
+const byUser = username => tasks => tasks.filter(task => task.username == username)
+const sortBy = attr => tasks => tasks.sort((a,b) => a[attr] - b[attr])
+
+const getIncompleteTaskSummaries = R.compose(incompleteTask, byUser('Scott'), sortBy('date'))
+
+const fetchData = (predicate, data) => {
     const tasks = data.tasks || [];
-    return Promise.resolve(tasks.filter(task => !task.complete && task.username == name));
+    return Promise.resolve(predicate(tasks));
 }
+
 
 // pure
 // 1. return Object... no side effect
 // 2. only depends on it's parameters
-getIncompleteTaskSummaries(data, 'Lena')
+fetchData(getIncompleteTaskSummaries, data)
     .then(console.log)
     .catch(console.error)
 
