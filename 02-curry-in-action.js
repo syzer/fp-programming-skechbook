@@ -45,8 +45,8 @@ const data = {
 
 const incompleteTask = tasks => tasks.filter(task => !task.complete)
 const byUser = username => tasks => tasks.filter(task => task.username == username)
-const sortBy = attr => tasks => tasks.sort((a,b) => a[attr] - b[attr])
-const summary = tasks => tasks.map(({title, priority}) => ({title, priority}));
+const sortBy = attr => tasks => tasks.sort((a, b) => a[attr] - b[attr])
+const summary = tasks => tasks.map(({ title, priority }) => ({ title, priority }));
 const getIncompleteTaskSummaries = R.pipe(incompleteTask, byUser('Scott'), sortBy('date'), summary)
 
 const fetchData = (predicate, data) => {
@@ -74,8 +74,25 @@ const getIncompleteTaskSummaries2 = (data, memberName) =>
         .then(R.map(R.pick(['title', 'priority'])))
         .then(R.sortBy(R.prop('dueDate')))
 
-getIncompleteTaskSummaries2(data, 'Scott')
+// getIncompleteTaskSummaries2(data, 'Scott')
+//     .then(console.log)
+//     .catch(console.error)
+
+// dont leak prmise everywhere
+const getIncompleteTaskSummaries3 = (data, memberName) =>
+    fetchData2(data)
+    // business logic here
+        .then(R.pipe(
+            R.prop('tasks'),
+            R.filter(R.propEq('username', memberName)),
+            R.reject(R.propEq('complete', true)),
+            R.map(R.pick(['title', 'priority'])),
+            // R.tap(console.warn),
+            R.sortBy(R.prop('dueDate'))
+        ))
+
+getIncompleteTaskSummaries3(data, 'Scott')
     .then(console.log)
-    .catch(console.error)
+    .catch(console.warn)
 
 // fs.readFile('bla').pipe(transducer).pipe(process.stdout)
