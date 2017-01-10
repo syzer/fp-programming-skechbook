@@ -33,6 +33,15 @@ const data = {
 adminOnlyPatch(data);
 
 
+// not a good idea
+// adminOnlyPatch(data)
+//     .then(console.log)
+//     .catch(console.error)
+
+
+// Either(Left | Right)
+
+
 /*
 
  */
