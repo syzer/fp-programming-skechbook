@@ -42,14 +42,15 @@ const data = {
     ]
 }
 
-const getIncompleteTaskSummaries = name => {
-    return Promise.resolve({});
+const getIncompleteTaskSummaries = (data, name) => {
+    const tasks = data.tasks || [];
+    return Promise.resolve(tasks.filter(task => !task.complete && task.username == name));
 }
 
 // pure
 // 1. return Object... no side effect
-// 2. pure => return Object... no side effect
-getIncompleteTaskSummaries('Lena')
+// 2. only depends on it's parameters
+getIncompleteTaskSummaries(data, 'Lena')
     .then(console.log)
     .catch(console.error)
 
