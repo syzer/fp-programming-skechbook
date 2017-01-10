@@ -46,8 +46,8 @@ const data = {
 const incompleteTask = tasks => tasks.filter(task => !task.complete)
 const byUser = username => tasks => tasks.filter(task => task.username == username)
 const sortBy = attr => tasks => tasks.sort((a,b) => a[attr] - b[attr])
-
-const getIncompleteTaskSummaries = R.pipe(incompleteTask, byUser('Scott'), sortBy('date'))
+const summary = tasks => tasks.map(({title, priority}) => ({title, priority}));
+const getIncompleteTaskSummaries = R.pipe(incompleteTask, byUser('Scott'), sortBy('date'), summary)
 
 const fetchData = (predicate, data) => {
     const tasks = data.tasks || [];
