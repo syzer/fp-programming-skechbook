@@ -46,6 +46,9 @@ const getIncompleteTaskSummaries = name => {
     return Promise.resolve({});
 }
 
+// pure
+// 1. return Object... no side effect
+// 2. pure => return Object... no side effect
 getIncompleteTaskSummaries('Lena')
     .then(console.log)
     .catch(console.error)
