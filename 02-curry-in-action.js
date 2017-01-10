@@ -42,10 +42,14 @@ const data = {
     ]
 }
 
+const getIncompleteTaskSummaries = name => {
+    return Promise.resolve({});
+}
 
 getIncompleteTaskSummaries('Lena')
     .then(console.log)
     .catch(console.error)
+
 
 // [ { id: 105,
 // priority: 'medium',
