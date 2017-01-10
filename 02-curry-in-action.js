@@ -1,4 +1,14 @@
 const R = require('ramda')
+const { pipe, map, prop, filter, reject, pick, sortBy, propEq, tap } = R
+
+// R.pipe(
+//     R.prop('tasks'),
+//     R.filter(R.propEq('username', memberName)),
+//     R.reject(R.propEq('complete', true)),
+//     R.map(R.pick(['title', 'priority'])),
+//     R.tap(console.warn),
+// R.sortBy(R.prop('dueDate'))
+
 /**
  * getIncompleteTaskSummaries
  */
@@ -45,9 +55,9 @@ const data = {
 
 const incompleteTask = tasks => tasks.filter(task => !task.complete)
 const byUser = username => tasks => tasks.filter(task => task.username == username)
-const sortBy = attr => tasks => tasks.sort((a, b) => a[attr] - b[attr])
+const sortByAttr = attr => tasks => tasks.sort((a, b) => a[attr] - b[attr])
 const summary = tasks => tasks.map(({ title, priority }) => ({ title, priority }));
-const getIncompleteTaskSummaries = R.pipe(incompleteTask, byUser('Scott'), sortBy('date'), summary)
+const getIncompleteTaskSummaries = R.pipe(incompleteTask, byUser('Scott'), sortByAttr('date'), summary)
 
 const fetchData = (predicate, data) => {
     const tasks = data.tasks || [];
@@ -96,3 +106,18 @@ getIncompleteTaskSummaries3(data, 'Scott')
     .catch(console.warn)
 
 // fs.readFile('bla').pipe(transducer).pipe(process.stdout)
+
+
+const getIncompleteTaskSummaries4 = (data, memberName) =>
+    fetchData2(data)
+        .then(pipe(
+            prop('tasks'),
+            filter(propEq('username', memberName)),
+            reject(propEq('complete', true)),
+            map(pick(['title', 'priority'])),
+            sortBy(prop('dueDate'))
+        ))
+
+getIncompleteTaskSummaries4(data, 'Scott')
+    .then(console.log)
+    .catch(console.warn)
