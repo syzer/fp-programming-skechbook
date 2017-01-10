@@ -9,21 +9,26 @@ function patch(req, res, error) {
 const onlyAdmin = (req, res) => {
     const error = req.user != 'dmin';
 
-    return {req, res, error}
+    return { req, res, error }
 }
 
-const removeId = (req, res, error) => {
-    if(req.body._id) {
-        delete req.body._id;
+const removeId = ({ req, res, error }) => {
+    if (req.body._id) {
+        delete req.body._id
     }
-    return {req, res, error};
+    return { req, res, error }
 }
 
-const adminOnlyPatch = _.flow(onlyAdmin, removeId, patch);
+const adminOnlyPatch = _.flow(onlyAdmin, removeId, patch)
 
-adminOnlyPatch({user: 'admin', body: {_id:'123'}}, {});
+adminOnlyPatch({
+        user: 'admin',
+        body: { _id: '123' }
+    },
+    {}
+)
 
 
 /*
 
-*/
+ */
