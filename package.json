@@ -5,7 +5,7 @@
   "main": "01-curry.js",
   "dependencies": {
     "lodash": "^4.17.4",
-    "ramda": "^0.23.0"
+    "ramda": "^0.24.1"
   },
   "devDependencies": {},
   "scripts": {
